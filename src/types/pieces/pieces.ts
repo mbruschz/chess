@@ -1,16 +1,17 @@
-import { IPosition } from '../IPosition';
+import { IPieceTypes } from '../IPieceTypes';
 
 export abstract class Piece{
   readonly type: string;
   readonly isDark: boolean;
   readonly isDead: boolean;
+  readonly svg: string;
 
   constructor (
-    isDark: boolean,
-    type: string,
+    type: IPieceTypes,
   ){
-    this.isDark = isDark;
-    this.type = type;
+    this.isDark = type.isDark;
+    this.type = type.name;
+    this.svg = type.svg;
     this.isDead = false;
   }
 

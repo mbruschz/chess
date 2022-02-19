@@ -12,8 +12,8 @@ export class Game {
 
   constructor(){
     this.initializeBoard();
-    this.createDarkPieceSet();
-    this.createLigthPieceSet();
+    this.createTopPieceSet(true);
+    this.createBottomPieceSet(false);
   }
 
   private initializeBoard(){
@@ -25,34 +25,33 @@ export class Game {
     }
   }
 
-  createDarkPieceSet() {
-    this.board[0][0] = new Rook(true);
-    this.board[0][7] = new Rook(true);
-    this.board[0][1] = new Knigth(true);
-    this.board[0][6] = new Knigth(true);
-    this.board[0][2] = new Bishop(true);
-    this.board[0][5] = new Bishop(true);
-    this.board[0][3] = new Queen(true);
-    this.board[0][4] = new King(true);
+  createTopPieceSet(isDark: boolean) {
+    this.board[0][0] = new Rook(isDark);
+    this.board[0][7] = new Rook(isDark);
+    this.board[0][1] = new Knigth(isDark);
+    this.board[0][6] = new Knigth(isDark);
+    this.board[0][2] = new Bishop(isDark);
+    this.board[0][5] = new Bishop(isDark);
+    this.board[0][3] = new Queen(isDark);
+    this.board[0][4] = new King(isDark);
     
     for (let i=0; i<8; i++){
-      this.board[1][i] = new Pawn(true);
+      this.board[1][i] = new Pawn(isDark);
     }
   }
 
-  createLigthPieceSet() {
-    this.board[7][0] = new Rook(false);
-    this.board[7][7] = new Rook(false);
-    this.board[7][1] = new Knigth(false);
-    this.board[7][6] = new Knigth(false);
-    this.board[7][2] = new Bishop(false);
-    this.board[7][5] = new Bishop(false);
-    this.board[7][3] = new Queen(false);
-    this.board[7][4] = new King(false);
+  createBottomPieceSet(isDark: boolean) {
+    this.board[7][0] = new Rook(isDark);
+    this.board[7][7] = new Rook(isDark);
+    this.board[7][1] = new Knigth(isDark);
+    this.board[7][6] = new Knigth(isDark);
+    this.board[7][2] = new Bishop(isDark);
+    this.board[7][5] = new Bishop(isDark);
+    this.board[7][3] = new Queen(isDark);
+    this.board[7][4] = new King(isDark);
     
     for (let i=0; i<8; i++){
-      this.board[6][i] = new Pawn(false);
+      this.board[6][i] = new Pawn(isDark);
     }
   }
-
 }

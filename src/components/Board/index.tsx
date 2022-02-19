@@ -14,26 +14,27 @@ interface BoardProps{
 }
 
 function Board ({
-  lines=8, 
-  columns=8, 
-  squareSize=100, 
-  colors = {lightColor: '#FFFFFF', darkColor: '#000000'},
-  game,
-  }:BoardProps) {
+    lines=8, 
+    columns=8, 
+    squareSize=100, 
+    colors = {lightColor: '#FFFFFF', darkColor: '#5A5A5A'},
+    game,
+}:BoardProps) {
 
-    const Lines = [];
-    for (const x of Array(lines).keys()){
-      Lines.push(
-        <Line
-          key={x}
-          id={x}
-          squareSize={squareSize}
-          columns={columns}
-          colors={colors}
-          pieces={game.board[x]}
-        />
-      )
-    }
+  const Lines = [];
+  for (const x of Array(lines).keys()){
+    Lines.push(
+      <Line
+        key={x}
+        id={x}
+        squareSize={squareSize}
+        columns={columns}
+        colors={colors}
+        pieces={game.board[x]}
+      />
+    )
+  }
+  
   
 
   return (

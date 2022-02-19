@@ -5,7 +5,7 @@ import { PieceTypes } from '../../constants/PieceTypes';
 
 export class Rook extends Piece{
   constructor(isDark: boolean){
-    super(isDark, PieceTypes.ROOK)
+    super(isDark ? PieceTypes.Dark.ROOK : PieceTypes.Ligth.ROOK)
   }    
 
 }
