@@ -1,38 +1,43 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { IColors } from '../../types/IColors';
-import { Piece } from '../../types/pieces';
+import { IPosition } from '../../types/IPosition';
+import { Piece } from '../../types/pieces/pieces';
 import Square from '../Square';
 import { Wrapper } from './style';
 
 interface LineProps {
-  id: number,
+  line: number,
   squareSize: number,
-  columns: number,
   colors: IColors,
-  pieces: Array<Piece | undefined>,
+  board: Array<Piece | undefined>,
+  onMovePiece: (pIni: IPosition, pDest: IPosition) => void,
 }
-function Line ({ id, squareSize, columns, colors, pieces }: LineProps) {
-  const Squares = [];
+function Line ({ line, squareSize, colors, board, onMovePiece }: LineProps) {
 
-  for (const x of Array(columns).keys()){
-    const isLightColor: boolean = (id + x) % 2 === 0;
-
-    Squares.push(
-      <Square 
-        key={id.toString()+x.toString()}
-        id={id.toString()+x.toString()}
-        size={ squareSize }
-        color={isLightColor ? colors.lightColor : colors.darkColor}
-        piece={pieces[x]}
-      />
+  const Squares = () => {
+    console.log('render squares')
+    return (
+      board.map((p, i) => {
+        return (
+          <Square 
+            key={line.toString()+i.toString()}
+            line={line}
+            column={i}
+            size={ squareSize }
+            color={(line + i) % 2 === 0 ? colors.lightColor : colors.darkColor}
+            piece={p}
+            onMovePiece={onMovePiece}
+          />
+        )
+        })
     )
-  } 
+  }
 
   return (
     <Wrapper 
-      id={`line${id.toString()}`}
+      id={`line${line.toString()}`}
     >
-      {Squares}
+      {Squares()}
     </Wrapper>
   )
 }

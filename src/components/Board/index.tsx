@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Game } from '../../types/game';
 import { IColors } from '../../types/IColors';
+import { IPosition } from '../../types/IPosition';
+import { Rook } from '../../types/pieces/rook';
 import Line from '../Line';
 import { Wrapper } from './style';
 
@@ -20,30 +22,45 @@ function Board ({
     colors = {lightColor: '#FFFFFF', darkColor: '#5A5A5A'},
     game,
 }:BoardProps) {
+  
+  const [gameBoard, setGameBoard] = useState(game.board);
 
-  const Lines = [];
-  for (const x of Array(lines).keys()){
-    Lines.push(
-      <Line
-        key={x}
-        id={x}
-        squareSize={squareSize}
-        columns={columns}
-        colors={colors}
-        pieces={game.board[x]}
-      />
+  const onMovePiece = (pIni: IPosition, pDest: IPosition) => {
+    console.log('move Piece', pIni, pDest );
+    if (JSON.stringify(pIni) !== JSON.stringify(pDest)) {
+      let gb = gameBoard.map((x) => x);
+      gb[pDest.line][pDest.col] = gb[pIni.line][pIni.col];
+      gb[pIni.line][pIni.col] = undefined;
+      setGameBoard(gb);
+    }
+  }
+
+  const Lines = () => {
+    console.log('render Lines')
+    return (
+      gameBoard.map((l, i) => {
+        return (
+          <Line
+            key={i}
+            line={i}
+            squareSize={squareSize}
+            colors={colors}
+            board={gameBoard[i]}
+            onMovePiece={onMovePiece}
+          />
+        )
+        })
     )
   }
   
-  
-
   return (
     <Wrapper 
       id='board'
       heigth={lines * squareSize}
       width={columns * squareSize}
+
     >
-      {Lines}        
+      {Lines()}        
     </Wrapper>
   )
 }
